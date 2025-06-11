@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ESP32 Remote Control</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      margin: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .on { background-color: #4CAF50; color: white; }
+    .off { background-color: #f44336; color: white; }
+  </style>
+</head>
+<body>
+
+  <h4>ESP32 Remote LED Control</h4>
+  <button class="on" onclick="sendCommand('on')">Turn ON</button>
+  <button class="off" onclick="sendCommand('off')">Turn OFF</button>
+  <p id="status"></p>
+
+  <script>
+    const apiUrl = "https://4d717f93-022d-453c-bc60-2fe1aac1e1a1-00-unfbqd9tkjo0.pike.replit.dev/command"; // Replace this with your actual Replit URL
+
+    async function sendCommand(state) {
+      try {
+        const res = await fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ led: state })
+        });
+        const data = await res.json();
+        document.getElementById("status").innerText = `Command sent: ${data.command}`;
+      } catch (err) {
+        console.error(err);
+        document.getElementById("status").innerText = "Failed to send command.";
+      }
+    }
+  </script>
+
+</body>
+</html>
