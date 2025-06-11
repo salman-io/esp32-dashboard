@@ -83,8 +83,9 @@ Use the HTML file in `dashboard/index.html`
 
 ---
 # 📸 Screenshots
-
+website [click here](https://salman-io.github.io/esp32-dashboard/)
 ![Screenshot 2025-06-12 005909](https://github.com/user-attachments/assets/5893e8df-7bf1-4510-97b4-a3c1a0f0216c)
+
 
 ---
 
