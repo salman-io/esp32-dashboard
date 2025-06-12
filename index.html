@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ESP32 Remote Control</title>
+  <title>ESP32 Timer Automation</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,14 +14,12 @@
     h1 {
       color: #333;
     }
-    button {
-      font-size: 1.5rem;
-      padding: 1rem 2rem;
-      margin: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
+    button, input {
+      font-size: 1rem;
+      padding: 0.6rem 1rem;
+      margin: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
     .on { background-color: #4CAF50; color: white; }
     .off { background-color: #f44336; color: white; }
@@ -29,13 +27,20 @@
 </head>
 <body>
 
-  <h4>ESP32 Remote LED Control</h4>
-  <button class="on" onclick="sendCommand('on')">Turn ON</button>
+  <h1>ESP32 Remote with Real-Time Automation</h1>
+
+  <button class="on" onclick="handleOn()">Turn ON</button>
   <button class="off" onclick="sendCommand('off')">Turn OFF</button>
+
+  <h3>Automation Schedule</h3>
+  <label>ON Time: <input type="time" id="onTime"></label><br>
+  <label>OFF Time: <input type="time" id="offTime"></label><br>
+
   <p id="status"></p>
+  <p id="timeDisplay"></p>
 
   <script>
-    const apiUrl = "https://esp32-api-iq12.onrender.com/command"; // Replace this with your actual Replit URL
+    const apiUrl = "https://esp32-api-iq12.onrender.com/command"; // Replace with your actual URL
 
     async function sendCommand(state) {
       try {
@@ -51,6 +56,28 @@
         document.getElementById("status").innerText = "Failed to send command.";
       }
     }
+
+    function handleOn() {
+      sendCommand("on");
+    }
+
+    // Automation Timer Check
+    setInterval(() => {
+      const now = new Date();
+      const currentTime = now.toTimeString().slice(0, 5); // HH:MM format
+      document.getElementById("timeDisplay").innerText = "Current Time: " + currentTime;
+
+      const onTime = document.getElementById("onTime").value;
+      const offTime = document.getElementById("offTime").value;
+
+      if (currentTime === onTime) {
+        sendCommand("on");
+      }
+      if (currentTime === offTime) {
+        sendCommand("off");
+      }
+
+    }, 1000); // Check every second
   </script>
 
 </body>
