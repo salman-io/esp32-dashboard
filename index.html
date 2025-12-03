@@ -2,83 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ESP32 Timer Automation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Page Not Found</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #c7ebff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       text-align: center;
-      padding: 2rem;
-      background-color: #f0f0f0;
     }
+
+    .container {
+      max-width: 600px;
+      padding: 20px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+    }
+
     h1 {
+      font-size: 2.5rem;
+      color: #ff5555;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
       color: #333;
     }
-    button, input {
-      font-size: 1rem;
-      padding: 0.6rem 1rem;
-      margin: 0.5rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+
+    a {
+      text-decoration: none;
+      color: #005eff;
+      font-weight: bold;
+      font-size: 1.1rem;
     }
-    .on { background-color: #4CAF50; color: white; }
-    .off { background-color: #f44336; color: white; }
+
+    /* Mobile optimization */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      p, a {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h1>ESP32 Remote with Real-Time Automation</h1>
+  <div class="container">
+    <!-- Replace "404.png" with your actual uploaded filename -->
+    <img src="404.png" alt="404 Error Image">
 
-  <button class="on" onclick="handleOn()">Turn ON</button>
-  <button class="off" onclick="sendCommand('off')">Turn OFF</button>
-
-  <h3>Automation Schedule</h3>
-  <label>ON Time: <input type="time" id="onTime"></label><br>
-  <label>OFF Time: <input type="time" id="offTime"></label><br>
-
-  <p id="status"></p>
-  <p id="timeDisplay"></p>
-
-  <script>
-    const apiUrl = "https://esp32-api-iq12.onrender.com/command"; // Replace with your actual URL
-
-    async function sendCommand(state) {
-      try {
-        const res = await fetch(apiUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ led: state })
-        });
-        const data = await res.json();
-        document.getElementById("status").innerText = `Command sent: ${data.command}`;
-      } catch (err) {
-        console.error(err);
-        document.getElementById("status").innerText = "Failed to send command.";
-      }
-    }
-
-    function handleOn() {
-      sendCommand("on");
-    }
-
-    // Automation Timer Check
-    setInterval(() => {
-      const now = new Date();
-      const currentTime = now.toTimeString().slice(0, 5); // HH:MM format
-      document.getElementById("timeDisplay").innerText = "Current Time: " + currentTime;
-
-      const onTime = document.getElementById("onTime").value;
-      const offTime = document.getElementById("offTime").value;
-
-      if (currentTime === onTime) {
-        sendCommand("on");
-      }
-      if (currentTime === offTime) {
-        sendCommand("off");
-      }
-
-    }, 1000); // Check every second
-  </script>
+    <h1>Oops! Page Not Found</h1>
+    <p>This page is lost…</p>
+    <p><a href="/">Take me back home</a></p>
+  </div>
 
 </body>
 </html>
